@@ -5,14 +5,16 @@
 	<meta content="no-cache" http-equiv="Cache-Control" />
 	<meta content="no-cache" http-equiv="Pragma" />
 	
-	<title>Welcome to CodeIgniter</title>
+	<title>D.</title>
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"/>
 
-	<link rel="stylesheet" type="text/css" href="<?=base_url().DIR_CSS?>reset.css" />
-	<link rel="stylesheet" type="text/css" href="<?=base_url().DIR_CSS?>style.css" />
+	<script src="<?php echo base_url().DIR_JS ?>ckeditor/ckeditor.js"></script>
+	<script src="<?php echo base_url().DIR_JS;?>ckeditor/adapters/jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url().DIR_CSS ?>reset.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url().DIR_CSS ?>style.css" />
 </head>
 
 <body>
@@ -35,5 +37,16 @@
 	Power by Rack Xiao@FB
 </div><!-- footer -->
 
+<script>
+$(function(){
+	$('textarea.editor').ckeditor(
+		{
+			fullPage : false,
+			//filebrowserImageBrowseUrl : "<?php echo base_url().'util/webservice_ajax/index'; ?>",
+			entities : false
+		}
+	);
+});
+</script>
 </body>
 </html>

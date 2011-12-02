@@ -1,7 +1,17 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 function develop_guide() {
 	$CI = &get_instance();
-	$CI->output->enable_profiler(IS_DEVELOPED);
+	$URIs = array(
+		'ajax',
+	);
+	$UseDevelop = TRUE;
+	foreach($URIs as $URI) {
+		if( stripos(uri_string(), $URI)!==FALSE ) {
+			$UseDevelop =FALSE;
+			break;
+		}
+	}
+	$CI->output->enable_profiler(IS_DEVELOPED&&$UseDevelop);
 }
 
 /**

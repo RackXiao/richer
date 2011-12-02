@@ -7,8 +7,9 @@ class Welcome extends CI_Controller {
 	
 	public function index() {
 		$data = array();
-		$layout_data['menu'] = $this->load->view('layout/memu', array(), TRUE);
+		
 		$layout_data['content'] = $this->load->view('index', $data, TRUE);
+		$layout_data['menu'] = $this->load->view('layout/memu', array(), TRUE);
 		$this->load->view('layout/main', $layout_data);
 	}
 }

@@ -40,6 +40,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
 
+date_default_timezone_set('Asia/Taipei');
+
 /* 開發環境專用  */
 define('IS_DEVELOPED', ($_SERVER['SERVER_NAME']=='localhost')?TRUE:FALSE );
 
@@ -49,17 +51,25 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'rich');
 
+/* Parameters */
 define('DATA_PER_PAGE', 10);
 
+/* DIR */
+define('DIR_CSS', 'css/');
+define('DIR_JS', 'js/');
+define('DIR_IMAGE', 'image/');
+
+/* function define */
+define('M_C_NORMAL', '一般');
+define('M_INDEX', '首頁');
+define('M_CONTENT', '文章區');
+
+/* system define */
 define('ERR_MSG_PREFIX', '<span class="err_msg">');
 define('ERR_MSG_SUFFIX', '</span>');
 
-// DIR
-define('DIR_CSS', 'css/');
-define('DIR_JS', 'js/');
-
 /* System Parameters */
-$splash = (strtoupper(substr(PHP_OS,0,3)=='WIN')) ? '\\' : '/';
-$path = explode($splash, realpath(__FILE__));
+define('SPLASH', (strtoupper(substr(PHP_OS,0,3)=='WIN')) ? '\\' : '/');
+$path = explode(SPLASH, realpath(__FILE__));
 array_splice($path, count($path)-3);
-define('PATH_CODE_BASE', join('/',$path).'/');
+define('CODE_BASE', join(SPLASH,$path).SPLASH);

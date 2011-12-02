@@ -4,7 +4,10 @@ class Link_preview extends CI_Controller {
 		parent::__construct();
 		$this->test_model = setBasicModel('Link');
 		
+		echo getControllerCIPath(__FILE__);
+		echo br(2);
 		echo __FILE__;
+		echo br(2);
 	}
 	
 	public function index() {

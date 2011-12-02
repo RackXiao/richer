@@ -11,15 +11,15 @@ class Basic_model extends CI_Model  {
 	function getThisTableName() {
 		return $this->table_name;
 	}
-
+	
 	function getAll($orderBy='id DESC') {
 		$sql = "SELECT * FROM {$this->table_name} ORDER BY {$orderBy}";
 		return $this->db->query($sql);
 	}
 	
-	function getOne($id){
-		$sql = "SELECT * FROM {$this->table_name} WHERE id = ?";
-		return $this->db->query($sql, $id);
+	function getBy($array){
+		$this->db->where($array);
+		return $this->db->get($this->table_name);
 	}
 	
 	function insert($data) {
