@@ -40,7 +40,7 @@ function getControllerCIPath($file){
 * @return mixed
 */
 function assoc_to_segment($array){
-	return segment_encode(serialize($array));
+	return _segment_encode(serialize($array));
 }
 
 /**
@@ -53,10 +53,10 @@ function segment_to_assoc($segment){
 	if ($segment === "-") {
 		return array();
 	}
-	return unserialize(segment_decode($segment));
+	return unserialize(_segment_decode($segment));
 }
 
-function segment_encode($str){
+function _segment_encode($str){
 	$result = base64_encode($str);
 	$result = str_replace("+", "-", $result);
 	$result = str_replace("/", "_", $result);
@@ -64,7 +64,7 @@ function segment_encode($str){
 	return $result;
 }
 
-function segment_decode($str) {
+function _segment_decode($str) {
 	$result = str_replace("-", "+", $str);
 	$result = str_replace("_", "/", $result);
 	$num = strlen($result) % 4;
@@ -77,17 +77,6 @@ function segment_decode($str) {
 function redirect_to($url){
 	Header("HTTP/1.1 301 Moved Permanently");
 	Header("Location:{$url}"); 
-}
-
-/**
- * 未用到
- * @param ary $segment_array
- * @param str $replace_index
- * @param str $replace_value
- */
-function replace_url($segment_array, $replace_index, $replace_value){
-	$segment_array[$replace_index]=$replace_value;
-	return site_url($segment_array);
 }
 
 /**

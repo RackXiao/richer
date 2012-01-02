@@ -4,13 +4,11 @@ class Abstract_basic_model extends CI_Model  {
 		parent::__construct();
 	}
 	
-//	function getList($condition=array(), $cur_page=-1, $order_by = 'id DESC'){
-//		
-//	}
-//	
-//	function countGetList($condition = array()) {
-//		
-//	}
+	var $table_name = '';
+	
+	function getList($condition=array(), $cur_page=-1, $order_by = 'id DESC'){}
+	
+	function countGetList($condition = array()) {}
 	
 	function getBy($field, $value) {
 		$this->db->where($field, $value); 
@@ -18,26 +16,37 @@ class Abstract_basic_model extends CI_Model  {
 	}
 
 	function getAll() {
-		$sql = "SELECT * FROM {$this->table_name} ORDER BY arrange DESC, id DESC";
-		return $this->db->query($sql);
+		$this->db->order_by("arrange DESC, id DESC");
+		return $this->db->get($this->table_name);
 	}
 	
-	function insert($data) {
+	function insert($data, $hasFile=FALSE) {
+		if($hasFile) {
+			unset($data['image']);
+			$image = upload_file($_FILES['image_file'], DIR_IMAGE);
+			if(!empty($image))  $data['image'] = DIR_IMAGE.$image;
+		}
+		
+		$qry = $this->getMaxArrange();
+		$data['arrange'] = ($qry->num_rows()==0) ? 1 : $qry->row()->arrange + 1;
+		
 		return basic_db_insert($this->table_name, $data);
 	}
 
-	function update($data) {
+	function update($data, $hasFile=FALSE) {
+		if($hasFile) {
+			unset($data['image']);
+			$image = upload_file($_FILES['image_file'], DIR_IMAGE, array('id'=>$data['id'],'table_name'=>$this->table_name,'field'=>'image'));
+			if(!empty($image))  $data['image'] = DIR_IMAGE.$image;
+		}
 		return basic_db_update($this->table_name, $data);
 	}
 	
-	function delete($id_list) {
+	function delete($id_list, $hasFile=FALSE) {
 		foreach ($id_list as $id) {
+			if($hasFile) remove_file(array('id'=>$id,'table_name'=>$this->table_name,'field'=>'image'));
 			$this->db->delete($this->table_name, array('id'=>$id));
 		}
-	}
-
-	function changeStatus($id_list, $status) {
-		$this->changeFieldStatus($id_list, 'enable', $status);
 	}
 
 	function changeFieldStatus($id_list, $filed, $status) {
@@ -66,10 +75,18 @@ class Abstract_basic_model extends CI_Model  {
 	
 	function changeArrange($row, $option) {
 		if ($option === '+') {
-			$sql = "SELECT * FROM {$this->table_name} WHERE  arrange = (SELECT MIN(arrange) as arrange FROM {$this->table_name} WHERE  arrange > ?)";
+			$sql = "SELECT id, arrange FROM {$this->table_name} 
+					WHERE  arrange = (	SELECT MIN(arrange) as arrange 
+										FROM {$this->table_name} 
+										WHERE  arrange > ?)
+					";
 		}
 		if ($option === '-') {
-			$sql = "SELECT * FROM {$this->table_name} WHERE  arrange = (SELECT MAX(arrange) as arrange FROM {$this->table_name} WHERE  arrange < ?)";
+			$sql = "SELECT id, arrange FROM {$this->table_name} 
+					WHERE  arrange = (	SELECT MAX(arrange) as arrange 
+										FROM {$this->table_name} 
+										WHERE  arrange < ?)
+					";
 		}
 		
 		$qry = $this->db->query($sql, array($row->arrange));

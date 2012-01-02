@@ -40,9 +40,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
 
-date_default_timezone_set('Asia/Taipei');
-
-/* 開發環境專用  */
+/* 環境  */
 define('IS_DEVELOPED', ($_SERVER['SERVER_NAME']=='localhost')?TRUE:FALSE );
 
 // DB SETUP
@@ -53,23 +51,23 @@ define('DB_NAME', 'rich');
 
 /* Parameters */
 define('DATA_PER_PAGE', 10);
+define('ABS_STR_LENGTH', 50);
 
 /* DIR */
-define('DIR_CSS', 'css/');
-define('DIR_JS', 'js/');
+define('DIR_UPLOAD', 'upload/');
 define('DIR_IMAGE', 'image/');
 
-/* function define */
-define('M_C_NORMAL', '一般');
-define('M_INDEX', '首頁');
-define('M_CONTENT', '文章區');
+define('UPLOAD_PATH', FCPATH.DIR_UPLOAD);
 
-/* system define */
+/* Function */
+define('M_G_POST', '文章');
+define('M_POST', '文章');
+define('M_POST_E', 'Posts');
+
+/* System */
+define('SPLASH', (strtoupper(substr(PHP_OS,0,3)=='WIN')) ? '\\' : '/');
 define('ERR_MSG_PREFIX', '<span class="err_msg">');
 define('ERR_MSG_SUFFIX', '</span>');
 
-/* System Parameters */
-define('SPLASH', (strtoupper(substr(PHP_OS,0,3)=='WIN')) ? '\\' : '/');
-$path = explode(SPLASH, realpath(__FILE__));
-array_splice($path, count($path)-3);
-define('CODE_BASE', join(SPLASH,$path).SPLASH);
+// define('DIR_CONFIG_ADDITION', 'config/addition/');
+// include APPPATH.DIR_CONFIG_ADDITION."file.php";

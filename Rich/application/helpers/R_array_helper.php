@@ -23,7 +23,7 @@ function array_to_assoc($array, $key_field, $value_field = null) {
 				continue;
 			}
 		}
-		$result[$arr[$key_field]] = ($value_field !== null ? $arr[$value_field] : $arr);
+		$result[$arr[$key_field]] = ($value_field !== null) ? $arr[$value_field] : $arr;
 	}
 	return $result;
 }
@@ -44,28 +44,9 @@ function array_filter_key($orginal_array, $available_keys) {
  * @param $db_name
  * @return array
  */
-function array_filter_table($orginal_array, $db_name) {
+function array_filter_table($db_name, $orginal_array) {
 	$CI = &get_instance();
 	return array_filter_key($orginal_array, $CI->db->list_fields($db_name));
-}
-
-
-/**
- * 取得 db->query() 的其中某幾筆資料。
- * @param $query_result db class 的 query() 回傳物件
- * @param $start_num 起始資料筆數（從 0 起跳）
- * @param $amount 要取得的資料筆數
- * @return array(hash) 阿就是資料阿....
- */
-function result_slice($query_result, $start_num, $amount) {
-	$result = array();
-	for($i=0; $i<$amount; $i++){
-		if($i+$start_num >= $query_result->num_rows()){
-			break;
-		}
-		$result []= $query_result->row($i+$start_num);
-	}
-	return $result;
 }
 
 /**

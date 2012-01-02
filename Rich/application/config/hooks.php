@@ -12,17 +12,24 @@
 
 $hook['post_controller_constructor'][] = array(
 			'class'    => '',
-			'function' => 'develop_guide',
+			'function' => 'func_guide',
 			'filename' => 'R_guide_hook.php',
 			'filepath' => 'hooks',
 );
 
-//$hook['post_controller_constructor'][] = array(
-//			'class'    => '',
-//			'function' => 'login_guide',
-//			'filename' => 'R_guide_hook.php',
-//			'filepath' => 'hooks',
-//);
+$hook['post_controller_constructor'][] = array(
+			'class'    => '',
+			'function' => 'login_guide',
+			'filename' => 'R_guide_hook.php',
+			'filepath' => 'hooks',
+);
+
+$hook['post_controller_constructor'][] = array(
+			'class'    => '',
+			'function' => 'admin_login_guide',
+			'filename' => 'R_guide_hook.php',
+			'filepath' => 'hooks',
+);
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

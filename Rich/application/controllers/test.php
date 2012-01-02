@@ -33,6 +33,9 @@ class Test extends CI_Controller {
 //		$this->load->spark('markdown/1.2');
 //		$html = parse_markdown("* aaa \r\n 	* bbb \r\n	");
 //		echo $html;
+		
+		echo APPPATH.'  '.FCPATH;
+		echo br(2);
 
 		echo dirname(__FILE__);
 		echo br(2);

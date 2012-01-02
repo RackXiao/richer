@@ -8,7 +8,7 @@
 function basic_db_insert($table_name, $insert_data){
 	$CI = &get_instance();
 
-	$insert_data = array_filter_table($insert_data, $table_name);
+	$insert_data = array_filter_table($table_name, $insert_data);
 	
 	$is_success = $CI->db->insert($table_name, $insert_data);
 	if (!$is_success) {
@@ -30,7 +30,7 @@ function basic_db_update($table_name, $update_data){
 	}
 	$CI = &get_instance();
 
-	$update_data = array_filter_table($update_data, $table_name);
+	$update_data = array_filter_table($table_name, $update_data);
 	
 	return $CI->db->update($table_name, $update_data, array('id'=>$update_data['id']));
 }

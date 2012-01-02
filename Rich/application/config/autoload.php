@@ -26,6 +26,7 @@
 | 6. Models
 |
 */
+// date_default_timezone_set('Asia/Taipei');
 
 /*
 | -------------------------------------------------------------------
@@ -64,8 +65,9 @@ $autoload['libraries'] = array('database', 'form_validation', 'session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'form', 'array', 'html', 'language', 'file'
-							, 'pager', 'date', 'download', 'basic_data', 'basic_db', 'basic_model');
+$autoload['helper'] = array('url', 'form', 'array', 'html', 'language', 'file',
+							'pager', 'date', 'download',
+							'basic_data', 'basic_db', 'basic_model');
 
 
 /*
