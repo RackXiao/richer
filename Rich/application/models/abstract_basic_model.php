@@ -4,14 +4,22 @@ class Abstract_basic_model extends CI_Model  {
 		parent::__construct();
 	}
 	
-	var $table_name = '';
+	var $table_name;
+	
+	function setTableName($table_name) {
+		$this->table_name = $table_name;
+	}
+	
+	function getThisTableName() {
+		return $this->table_name;
+	}
 	
 	function getList($condition=array(), $cur_page=-1, $order_by = 'id DESC'){}
 	
 	function countGetList($condition = array()) {}
 	
-	function getBy($field, $value) {
-		$this->db->where($field, $value); 
+	function getBy($array){
+		$this->db->where($array);
 		return $this->db->get($this->table_name);
 	}
 
@@ -67,7 +75,6 @@ class Abstract_basic_model extends CI_Model  {
 		}
 	}
 
-//=== getMaxArrange 需要帶參數的話，以下兩個都要重寫 ===
 	function getMaxArrange() {
 		$this->db->select_max('arrange');
 		return $this->db->get($this->table_name);
@@ -75,18 +82,10 @@ class Abstract_basic_model extends CI_Model  {
 	
 	function changeArrange($row, $option) {
 		if ($option === '+') {
-			$sql = "SELECT id, arrange FROM {$this->table_name} 
-					WHERE  arrange = (	SELECT MIN(arrange) as arrange 
-										FROM {$this->table_name} 
-										WHERE  arrange > ?)
-					";
+			$sql = "SELECT id, arrange FROM {$this->table_name} WHERE arrange = ( SELECT MIN(arrange) as arrange FROM {$this->table_name} WHERE  arrange > ?)";
 		}
 		if ($option === '-') {
-			$sql = "SELECT id, arrange FROM {$this->table_name} 
-					WHERE  arrange = (	SELECT MAX(arrange) as arrange 
-										FROM {$this->table_name} 
-										WHERE  arrange < ?)
-					";
+			$sql = "SELECT id, arrange FROM {$this->table_name} WHERE arrange = ( SELECT MAX(arrange) as arrange FROM {$this->table_name} WHERE arrange < ?)";
 		}
 		
 		$qry = $this->db->query($sql, array($row->arrange));
