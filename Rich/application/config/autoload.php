@@ -26,7 +26,8 @@
 | 6. Models
 |
 */
-// date_default_timezone_set('Asia/Taipei');
+
+date_default_timezone_set('Asia/Taipei');
 
 /*
 | -------------------------------------------------------------------
